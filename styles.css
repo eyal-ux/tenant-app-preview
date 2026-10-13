@@ -4104,7 +4104,6 @@
   flex-direction: column;
   min-width: 0;
   padding: calc(12 * var(--u));
-  overflow: hidden;
   border-left: 1px solid var(--border);
   background: #f7f6f4;
 }
@@ -4149,48 +4148,6 @@
   border: 1px solid var(--border);
   border-radius: calc(12 * var(--u));
   background: #fff;
-  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.broadcast-shot.is-scrolled .bc-card {
-  transform: translateY(calc(-168 * var(--u)));
-}
-
-.bc-page {
-  display: flex;
-  flex-direction: column;
-  gap: calc(3 * var(--u));
-  margin: calc(12 * var(--u)) calc(14 * var(--u)) calc(14 * var(--u));
-  padding: calc(12 * var(--u));
-  border: 1px solid var(--border);
-  border-radius: calc(10 * var(--u));
-  background: #fafaf9;
-  transition: border-color 400ms ease, background-color 400ms ease, box-shadow 400ms ease;
-}
-
-.bc-page span {
-  color: var(--primary);
-  font-size: calc(8 * var(--u));
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.bc-page b {
-  color: var(--foreground);
-  font-size: calc(13 * var(--u));
-  font-weight: 600;
-}
-
-.bc-page small {
-  color: var(--muted);
-  font-size: calc(10 * var(--u));
-}
-
-.broadcast-shot.is-scrolled .bc-page {
-  border-color: var(--primary);
-  background: rgba(17, 118, 84, 0.08);
-  box-shadow: 0 0 0 3px rgba(17, 118, 84, 0.16);
 }
 
 .bc-sender {

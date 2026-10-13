@@ -1103,7 +1103,7 @@ grid-template-rows:0fr!important;
                         <span class="bc-footer-brand"><i></i>CITYLINE TOWERS</span>
                         <span class="bc-footer-line">Managed by Meridian Property Group</span>
                         <span class="bc-footer-line">1250 Broadway, New York, NY · (212) 555-0142</span>
-                      </div><div class="bc-page"><span>Building page</span><b>Amenity hours</b><small>Gym 5 AM–10 PM · Rooftop by reservation</small></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -2078,17 +2078,66 @@ padding-top:10px;
     if (!shot) return;
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce || !("IntersectionObserver" in window)) return;
+    var rows = shot.querySelectorAll(".bc-row[data-subject]");
+    var cursor = shot.querySelector(".bc-cursor");
+    var crumb = shot.querySelector(".bc-crumbs b");
+    var date = shot.querySelector(".bc-from small");
+    var cover = shot.querySelector(".bc-cover");
+    var eyebrow = shot.querySelector(".bc-cover-copy em");
+    var headline = shot.querySelector(".bc-cover-copy b");
+    var subject = shot.querySelector(".bc-subject");
+    var body = shot.querySelector(".bc-content p");
+    var fading = [cover, shot.querySelector(".bc-content"), crumb, date];
+    var order = [1, 2, 0];
+    var step = 0;
 
-    function play() {
-      shot.classList.add("is-scrolled");
-      setTimeout(function () { shot.classList.remove("is-scrolled"); }, 4200);
-      setTimeout(play, 6200);
+    function placeCursor(row) {
+      var stage = shot.getBoundingClientRect();
+      var box = row.getBoundingClientRect();
+      cursor.style.setProperty("--cursor-x", (box.left - stage.left + box.width * 0.42) + "px");
+      cursor.style.setProperty("--cursor-y", (box.top - stage.top + box.height * 0.42) + "px");
+    }
+
+    function showEmail(row) {
+      var current = shot.querySelector(".bc-row.is-selected");
+      if (current) current.classList.remove("is-selected");
+      row.classList.add("is-selected");
+      fading.forEach(function (part) { part.classList.add("is-swapping"); });
+      setTimeout(function () {
+        crumb.textContent = row.dataset.subject;
+        date.textContent = row.dataset.date;
+        eyebrow.textContent = row.dataset.eyebrow;
+        headline.textContent = row.dataset.headline;
+        subject.textContent = row.dataset.subject;
+        body.textContent = row.dataset.body;
+        cover.classList.remove("is-drill", "is-freight", "is-social");
+        cover.classList.add("is-" + row.dataset.cover);
+        fading.forEach(function (part) { part.classList.remove("is-swapping"); });
+      }, 180);
+    }
+
+    function clickRow(row) {
+      cursor.classList.add("is-pressing");
+      setTimeout(function () {
+        cursor.classList.remove("is-pressing");
+        showEmail(row);
+      }, 160);
+    }
+
+    function cycle() {
+      var row = rows[order[step % order.length]];
+      step += 1;
+      placeCursor(row);
+      setTimeout(function () { clickRow(row); }, 720);
+      setTimeout(cycle, 2800);
     }
 
     var observer = new IntersectionObserver(function (entries) {
       if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
       observer.disconnect();
-      setTimeout(play, 1600);
+      placeCursor(rows[0]);
+      shot.classList.add("is-playing");
+      setTimeout(cycle, 800);
     }, { threshold: 0.45 });
     observer.observe(shot);
   })();
