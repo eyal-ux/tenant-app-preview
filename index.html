@@ -2381,7 +2381,7 @@ padding-top:10px;
     function aimAtBestEmoji() {
       var stage = collage.getBoundingClientRect();
       var box = bestEmoji.getBoundingClientRect();
-      placeCursor(box.left - stage.left + box.width * 0.55, box.top - stage.top + box.height * 0.6);
+      placeCursor(box.left - stage.left + box.width * 0.55, box.top - stage.top + box.height * 0.78);
     }
 
     function parkCursor() {
@@ -2393,23 +2393,23 @@ padding-top:10px;
       parkCursor();
       setTimeout(function () {
         collage.classList.add("is-cursor-on");
-        aimAtBestEmoji();
       }, 100);
-      setTimeout(function () { bestEmoji.classList.add("is-hovered"); }, 900);
-      setTimeout(function () { cursor.classList.add("is-pressing"); }, 1400);
+      setTimeout(aimAtBestEmoji, 1000);
+      setTimeout(function () { bestEmoji.classList.add("is-hovered"); }, 1900);
+      setTimeout(function () { cursor.classList.add("is-pressing"); }, 2100);
       setTimeout(function () {
         cursor.classList.remove("is-pressing");
         bestEmoji.classList.remove("is-hovered");
         bestEmoji.classList.add("is-picked");
         collage.classList.add("is-rated");
-      }, 1560);
-      setTimeout(function () { collage.classList.add("is-thanked"); }, 2200);
+      }, 2260);
+      setTimeout(function () { collage.classList.add("is-thanked"); }, 2900);
       setTimeout(function () {
         var resting = collage.getBoundingClientRect();
         var box = bestEmoji.getBoundingClientRect();
         placeCursor(box.left - resting.left + box.width * 1.4, box.top - resting.top + box.height * 1.8);
-      }, 2600);
-      setTimeout(function () { collage.classList.remove("is-cursor-on"); }, 3400);
+      }, 3400);
+      setTimeout(function () { collage.classList.remove("is-cursor-on"); }, 4200);
     }
 
     bestEmoji.classList.remove("is-picked");
