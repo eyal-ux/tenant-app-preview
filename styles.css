@@ -400,17 +400,6 @@
   width: auto;
 }
 
-.ui-cover-mobile .ui-cover-logo {
-  top: 8px;
-  right: 8px;
-  height: 28px;
-  padding: 4px 8px;
-}
-
-.ui-cover-mobile .ui-cover-logo img {
-  height: 16px;
-}
-
 .ui-cover-accent {
   position: absolute;
   right: 0;
@@ -1043,7 +1032,10 @@
 }
 
 .ui-top-bar-title {
+  display: flex;
   flex: 1;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
   overflow: hidden;
   color: var(--foreground);
@@ -1053,6 +1045,12 @@
   text-align: center;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.ui-top-bar-title img {
+  display: block;
+  height: 28px;
+  width: auto;
 }
 
 /* Mobile home */
